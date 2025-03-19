@@ -7,3 +7,5 @@ Instructions pour rajouter des tables à l'API rest
 3. Ajouter les attributs comme pour la classe Aeroport, assurez-vous que les noms correspondent exactement aux noms des colonnes dans la BD
 4. Ajouter une interface 'NomTableRepository' comme AeroportRepository, changer la classe dans JpaRepository pour la bonne classe
 5. Créer une classe controller 'NomTableController'. Il faut juste définir les méthodes de base pour votre classe et en haut changer l'annotation @RequestMapping("/aeroports") pour un le nom de la classe
+6. Run l'application
+7. Testez en faisant des requête avec Postman
