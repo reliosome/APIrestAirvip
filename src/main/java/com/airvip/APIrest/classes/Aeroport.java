@@ -1,4 +1,4 @@
-package com.airvip.APIrest;
+package com.airvip.APIrest.classes;
 import jakarta.persistence.*;
 
 @Entity

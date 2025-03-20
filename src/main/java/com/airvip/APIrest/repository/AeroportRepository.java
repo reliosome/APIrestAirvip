@@ -1,4 +1,5 @@
-package com.airvip.APIrest;
+package com.airvip.APIrest.repository;
+import com.airvip.APIrest.classes.Aeroport;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

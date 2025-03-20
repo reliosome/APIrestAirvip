@@ -1,4 +1,6 @@
-package com.airvip.APIrest;
+package com.airvip.APIrest.controleurs;
+import com.airvip.APIrest.repository.AeroportRepository;
+import com.airvip.APIrest.classes.Aeroport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
