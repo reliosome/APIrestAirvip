@@ -1,4 +1,6 @@
-package com.airvip.APIrest;
+package com.airvip.APIrest.controleurs;
+import com.airvip.APIrest.classes.Utilisateur;
+import com.airvip.APIrest.repository.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,17 +34,21 @@ public class UtilisateurController {
         return utilisateur.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-//    // POST : Ajouter un utilisateur
-//    @PostMapping
-//    public ResponseEntity<?> createUtilisateur(@Valid @RequestBody Utilisateur utilisateur) {
-//        if (userRepository.existsByAdresseCourriel(utilisateur.getAdresse_courriel())) {
-//            return ResponseEntity.badRequest().body("Un utilisateur avec cet email existe déjà.");
-//        }
-//
-//        utilisateur.setMot_de_passe(passwordEncoder.encode(utilisateur.getMot_de_passe())); // Hachage du mot de passe
-//        Utilisateur savedUser = userRepository.save(utilisateur);
-//        return ResponseEntity.ok(savedUser);
-//    }
+    // POST : Ajouter un utilisateur
+    @PostMapping
+    public ResponseEntity<?> createUtilisateur(@Valid @RequestBody Utilisateur utilisateur) {
+        if (userRepository.existsByAdresseCourriel(utilisateur.getAdresse_courriel())) {
+            return ResponseEntity.badRequest().body("Un utilisateur avec cet email existe déjà.");
+        }
+
+        if (!utilisateur.getRole().equalsIgnoreCase("admin") && !utilisateur.getRole().equalsIgnoreCase("client")) {
+            return ResponseEntity.badRequest().body("Le rôle doit être 'admin' ou 'client'.");
+        }
+
+        utilisateur.setMot_de_passe(passwordEncoder.encode(utilisateur.getMot_de_passe())); // Hachage du mot de passe
+        Utilisateur savedUser = userRepository.save(utilisateur);
+        return ResponseEntity.ok(savedUser);
+    }
 
     // PUT : Mettre à jour un utilisateur
     @PutMapping("/{id}")

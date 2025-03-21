@@ -1,4 +1,4 @@
-package com.airvip.APIrest;
+package com.airvip.APIrest.classes;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -14,9 +14,13 @@ public class Utilisateur {
     private int id_utilisateur;
 
     @Column(nullable = false)
+    @NotBlank(message = "Le rôle est obligatoire")
+    private String role;
+
+    @Column(nullable = false, name = "adresse_courriel")
     @Email(message = "L'adresse courriel doit être valide")
     @NotBlank(message = "L'adresse courriel est obligatoire")
-    private String adresse_courriel;
+    private String adresseCourriel;
 
     @Column(nullable = false) // Champ obligatoire
     @NotBlank(message = "Le prénom est obligatoire")
@@ -33,8 +37,9 @@ public class Utilisateur {
 
     public Utilisateur() {}
 
-    public Utilisateur(String adresse_courriel, String prenom, String nom, String mot_de_passe) {
-        this.adresse_courriel = adresse_courriel;
+    public Utilisateur(String role, String adresse_courriel, String prenom, String nom, String mot_de_passe) {
+        this.role = role;
+        this.adresseCourriel = adresse_courriel;
         this.prenom = prenom;
         this.nom = nom;
         this.mot_de_passe = mot_de_passe;
@@ -48,12 +53,20 @@ public class Utilisateur {
         this.id_utilisateur = id_utilisateur;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public String getAdresse_courriel() {
-        return adresse_courriel;
+        return adresseCourriel;
     }
 
     public void setAdresse_courriel(String courriel) {
-        this.adresse_courriel = courriel;
+        this.adresseCourriel = courriel;
     }
 
     public String getPrenom() {
