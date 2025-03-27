@@ -86,12 +86,12 @@ public class Utilisateur {
     }
 
     public String getMot_de_passe() {
-        return "********"; // Ne pas exposer le mot de passe
+        return mot_de_passe;
     }
 
 
     public void setMot_de_passe(String mot_de_passe) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        this.mot_de_passe = encoder.encode(mot_de_passe);
+        this.mot_de_passe = mot_de_passe; //encoder.encode(mot_de_passe);
     }
 }
