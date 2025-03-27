@@ -9,7 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 import java.util.Optional;
-@CrossOrigin(origins = "*")
+
 @RestController
 @RequestMapping("/utilisateurs")
 
@@ -49,43 +49,6 @@ public class UtilisateurController {
         Utilisateur savedUser = userRepository.save(utilisateur);
         return ResponseEntity.ok(savedUser);
     }
-
-    @PostMapping("/sign-up")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody Utilisateur utilisateur) {
-        if (userRepository.existsByAdresseCourriel(utilisateur.getAdresse_courriel())) {
-            return ResponseEntity.badRequest().body("Un utilisateur avec cet email existe déjà.");
-        }
-
-        if (!utilisateur.getRole().equalsIgnoreCase("admin") && !utilisateur.getRole().equalsIgnoreCase("client")) {
-            return ResponseEntity.badRequest().body("Le rôle doit être 'admin' ou 'client'.");
-        }
-
-//        // Hachage du mot de passe avant l'enregistrement
-//        utilisateur.setMot_de_passe(passwordEncoder.encode(utilisateur.getMot_de_passe()));
-
-        System.out.println("Mot de passe avant encodage : " + utilisateur.getMot_de_passe());
-        String encodedPassword = passwordEncoder.encode(utilisateur.getMot_de_passe());
-        System.out.println("Mot de passe après encodage : " + encodedPassword);
-        utilisateur.setMot_de_passe(encodedPassword);
-
-
-        Utilisateur savedUser = userRepository.save(utilisateur);
-        return ResponseEntity.status(201).body(savedUser);
-    }
-
-    @PostMapping("/sign-in")
-    public ResponseEntity<?> authenticateUser(@RequestBody Utilisateur utilisateur) {
-        System.out.println(utilisateur.getAdresse_courriel() + " " + utilisateur.getMot_de_passe());
-        Optional<Utilisateur> user = userRepository.findByAdresseCourriel(utilisateur.getAdresse_courriel());
-
-        String encodedPassword = passwordEncoder.encode(user.get().getMot_de_passe());
-        if (user.isEmpty() || !passwordEncoder.matches(utilisateur.getMot_de_passe(), encodedPassword)) {
-            return ResponseEntity.status(401).body("Adresse courriel ou mot de passe incorrect.");
-        }
-
-        return ResponseEntity.ok(user.get());
-    }
-
 
     // PUT : Mettre à jour un utilisateur
     @PutMapping("/{id}")
