@@ -9,7 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 import java.util.Optional;
-
+@CrossOrigin(origins = "ttp://localhost:5173\", allowCredentials = \"true")
 @RestController
 @RequestMapping("/utilisateurs")
 
