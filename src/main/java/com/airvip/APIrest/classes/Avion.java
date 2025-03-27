@@ -1,6 +1,8 @@
 package com.airvip.APIrest.classes;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "Avion", schema = "dbo")
 public class Avion {
@@ -23,6 +25,10 @@ public class Avion {
         this.modele = modele;
         this.image = image;
         this.capacite = capacite;
+    }
+
+    public void setIdAvion(int id){
+        this.avion_id = id;
     }
 
     public String getModele() {

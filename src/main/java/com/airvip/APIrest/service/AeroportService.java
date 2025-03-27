@@ -1,16 +1,18 @@
-package com.airvip.APIrest.controleurs;
-import com.airvip.APIrest.repository.AeroportRepository;
+package com.airvip.APIrest.service;
+
+
 import com.airvip.APIrest.classes.Aeroport;
+import com.airvip.APIrest.repository.AeroportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-@RestController
-@RequestMapping("/aeroports")
-public class AeroportController {
+@Service
+public class AeroportService {
 
     @Autowired
     private AeroportRepository aeroRepository;
@@ -24,9 +26,9 @@ public class AeroportController {
 
     // GET : Récupérer un produit par ID
     @GetMapping("/{id}")
-    public ResponseEntity<Aeroport> getAeroportById(@PathVariable int id) {
-        Optional<Aeroport> aeroport = aeroRepository.findById(id);
-        return aeroport.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public Aeroport getAeroportById(@PathVariable int id) {
+        Aeroport aeroport = aeroRepository.findById(id).orElse(null);
+        return aeroport;//.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     // POST : Ajouter un produit
