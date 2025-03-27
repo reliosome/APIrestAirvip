@@ -1,6 +1,8 @@
 package com.airvip.APIrest.classes;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "Aeroport", schema = "dbo")
 public class Aeroport {
