@@ -10,7 +10,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin (origins = "*")
 @RestController
 @RequestMapping("/utilisateurs")
 
@@ -75,19 +74,29 @@ public class UtilisateurController {
         return ResponseEntity.status(201).body(savedUser);
     }
 
-    // POST : Se connecter
     @PostMapping("/sign-in")
     public ResponseEntity<?> authenticateUser(@RequestBody Utilisateur utilisateur) {
-        System.out.println(utilisateur.getAdresse_courriel() + " " + utilisateur.getMot_de_passe());
+        System.out.println("Tentative de connexion : " + utilisateur.getAdresse_courriel());
+
         Optional<Utilisateur> user = userRepository.findByAdresseCourriel(utilisateur.getAdresse_courriel());
 
-        String encodedPassword = passwordEncoder.encode(user.get().getMot_de_passe());
-        if (user.isEmpty() || !passwordEncoder.matches(utilisateur.getMot_de_passe(), encodedPassword)) {
+        if (user.isEmpty()) {
+            System.out.println("Utilisateur non trouvé !");
             return ResponseEntity.status(401).body("Adresse courriel ou mot de passe incorrect.");
         }
 
+        System.out.println("Utilisateur trouvé : " + user.get().getAdresse_courriel());
+        System.out.println("Mot de passe en base : " + user.get().getMot_de_passe());
+
+        if (!passwordEncoder.matches(utilisateur.getMot_de_passe(), user.get().getMot_de_passe())) {
+            System.out.println("Mot de passe incorrect !");
+            return ResponseEntity.status(401).body("Adresse courriel ou mot de passe incorrect.");
+        }
+
+        System.out.println("Connexion réussie !");
         return ResponseEntity.ok(user.get());
     }
+
 
     // PUT : Mettre à jour un utilisateur
     @PutMapping("/{id}")
