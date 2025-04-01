@@ -9,7 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 import java.util.Optional;
-@CrossOrigin(origins = "ttp://localhost:5173\", allowCredentials = \"true")
+@CrossOrigin(origins = "http://localhost:5173\", allowCredentials = \"true")
 @RestController
 @RequestMapping("/utilisateurs")
 
@@ -87,6 +87,7 @@ public class UtilisateurController {
 
         System.out.println("Utilisateur trouvé : " + user.get().getAdresse_courriel());
         System.out.println("Mot de passe en base : " + user.get().getMot_de_passe());
+        System.out.println("Mot de passe reçu pour authentification : " + utilisateur.getMot_de_passe());
 
         if (!passwordEncoder.matches(utilisateur.getMot_de_passe(), user.get().getMot_de_passe())) {
             System.out.println("Mot de passe incorrect !");
