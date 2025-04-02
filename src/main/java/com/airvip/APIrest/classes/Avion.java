@@ -1,6 +1,8 @@
 package com.airvip.APIrest.classes;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import java.util.List;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
@@ -8,39 +10,24 @@ import jakarta.persistence.*;
 public class Avion {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-incrémentation
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int avion_id;
 
     @Column(nullable = false)
     private String modele;
-    @Column(nullable = false) // Champ obligatoire
-    private String image;
+
     @Column(nullable = false)
     private int capacite;
 
+    @OneToMany(mappedBy = "avion", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Image> images;
 
     public Avion() {}
 
-    public Avion(String modele, String image, int capacite) {
+    public Avion(String modele, int capacite, List<Image> images) {
         this.modele = modele;
-        this.image = image;
         this.capacite = capacite;
-    }
-
-    public void setIdAvion(int id){
-        this.avion_id = id;
-    }
-
-    public String getModele() {
-        return modele;
-    }
-
-    public int getCapacite() {
-        return capacite;
-    }
-
-    public String getImage() {
-        return image;
+        this.setImages(images);
     }
 
     public int getAvion_id() {
@@ -51,19 +38,32 @@ public class Avion {
         this.avion_id = avion_id;
     }
 
-    public void setCapacite(int capacite) {
-        this.capacite = capacite;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
+    public String getModele() {
+        return modele;
     }
 
     public void setModele(String modele) {
         this.modele = modele;
     }
 
+    public int getCapacite() {
+        return capacite;
+    }
 
+    public void setCapacite(int capacite) {
+        this.capacite = capacite;
+    }
 
+    public List<Image> getImages() {
+        return images;
+    }
 
+    public void setImages(List<Image> images) {
+        this.images = images;
+        if (images != null) {
+            for (Image image : images) {
+                image.setAvion(this);
+            }
+        }
+    }
 }
