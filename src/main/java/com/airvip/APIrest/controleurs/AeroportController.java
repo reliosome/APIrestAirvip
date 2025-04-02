@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "*") // Ajuste selon l'origine réelle
+@CrossOrigin(origins = "http://localhost:5173\", allowCredentials = \"true") // Ajuste selon l'origine réelle
 @RestController
 @RequestMapping("/aeroports")
 public class AeroportController {
