@@ -39,6 +39,9 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/utilisateurs/sign-in", "/utilisateurs/sign-up").permitAll()
+                        .requestMatchers("/aeroports", "aeroports/*").permitAll()
+                        .requestMatchers("/vols", "vols/*").permitAll()
+                        .requestMatchers("/avions", "avions/*").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
