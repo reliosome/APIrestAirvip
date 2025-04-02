@@ -91,9 +91,15 @@ public class UtilisateurController {
             return ResponseEntity.status(401).body("Adresse courriel ou mot de passe incorrect.");
         }
 
-        String token = jwtUtil.generateToken(user.get().getAdresse_courriel());
+        Utilisateur authenticatedUser = user.get();
+        String token = jwtUtil.generateToken(authenticatedUser.getAdresse_courriel());
+
         System.out.println("Connexion réussie!");
-        return ResponseEntity.ok().body(Map.of("token", token));
+
+        return ResponseEntity.ok().body(Map.of(
+                "token", token,
+                "role", authenticatedUser.getRole()
+        ));
     }
 
 
