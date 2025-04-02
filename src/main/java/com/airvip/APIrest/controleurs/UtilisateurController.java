@@ -4,7 +4,6 @@ import com.airvip.APIrest.repository.UtilisateurRepository;
 import com.airvip.APIrest.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -69,9 +68,6 @@ public class UtilisateurController {
         if (!utilisateur.getRole().equalsIgnoreCase("admin") && !utilisateur.getRole().equalsIgnoreCase("client")) {
             return ResponseEntity.badRequest().body("Le rôle doit être 'admin' ou 'client'.");
         }
-
-//        // Hachage du mot de passe avant l'enregistrement
-//        utilisateur.setMot_de_passe(passwordEncoder.encode(utilisateur.getMot_de_passe()));
 
         System.out.println("Mot de passe avant encodage : " + utilisateur.getMot_de_passe());
         String encodedPassword = passwordEncoder.encode(utilisateur.getMot_de_passe());

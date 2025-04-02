@@ -16,7 +16,6 @@ import java.io.IOException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 
 @Component
