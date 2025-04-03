@@ -1,14 +1,22 @@
 package com.airvip.APIrest.controleurs;
 import com.airvip.APIrest.classes.Utilisateur;
 import com.airvip.APIrest.repository.UtilisateurRepository;
+import com.airvip.APIrest.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
 import java.util.List;
 import java.util.Optional;
+
+import java.util.Map;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+
 @CrossOrigin(origins = "http://localhost:5173\", allowCredentials = \"true")
 @RestController
 @RequestMapping("/utilisateurs")
@@ -61,9 +69,6 @@ public class UtilisateurController {
             return ResponseEntity.badRequest().body("Le rôle doit être 'admin' ou 'client'.");
         }
 
-//        // Hachage du mot de passe avant l'enregistrement
-//        utilisateur.setMot_de_passe(passwordEncoder.encode(utilisateur.getMot_de_passe()));
-
         System.out.println("Mot de passe avant encodage : " + utilisateur.getMot_de_passe());
         String encodedPassword = passwordEncoder.encode(utilisateur.getMot_de_passe());
         System.out.println("Mot de passe après encodage : " + encodedPassword);
@@ -74,28 +79,28 @@ public class UtilisateurController {
         return ResponseEntity.status(201).body(savedUser);
     }
 
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    //POST : Se connecter
     @PostMapping("/sign-in")
     public ResponseEntity<?> authenticateUser(@RequestBody Utilisateur utilisateur) {
-        System.out.println("Tentative de connexion : " + utilisateur.getAdresse_courriel());
-
         Optional<Utilisateur> user = userRepository.findByAdresseCourriel(utilisateur.getAdresse_courriel());
 
-        if (user.isEmpty()) {
-            System.out.println("Utilisateur non trouvé !");
+        if (user.isEmpty() || !passwordEncoder.matches(utilisateur.getMot_de_passe(), user.get().getMot_de_passe())) {
             return ResponseEntity.status(401).body("Adresse courriel ou mot de passe incorrect.");
         }
 
-        System.out.println("Utilisateur trouvé : " + user.get().getAdresse_courriel());
-        System.out.println("Mot de passe en base : " + user.get().getMot_de_passe());
-        System.out.println("Mot de passe reçu pour authentification : " + utilisateur.getMot_de_passe());
+        Utilisateur authenticatedUser = user.get();
+        String token = jwtUtil.generateToken(authenticatedUser.getAdresse_courriel());
 
-        if (!passwordEncoder.matches(utilisateur.getMot_de_passe(), user.get().getMot_de_passe())) {
-            System.out.println("Mot de passe incorrect !");
-            return ResponseEntity.status(401).body("Adresse courriel ou mot de passe incorrect.");
-        }
+        System.out.println("Connexion réussie!");
 
-        System.out.println("Connexion réussie !");
-        return ResponseEntity.ok(user.get());
+        return ResponseEntity.ok().body(Map.of(
+                "token", token,
+                "role", authenticatedUser.getRole(),
+                "id", authenticatedUser.getId_utilisateur()
+        ));
     }
 
 
