@@ -43,6 +43,7 @@ public class SecurityConfig {
                         .requestMatchers("/vols", "vols/*").permitAll()
                         .requestMatchers("/avions", "avions/*").permitAll()
                         .requestMatchers("/utilisateurs/{id}").permitAll()
+                        .requestMatchers("/reservations", "/reservations/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

@@ -42,41 +42,43 @@ public class ReservationController {
         return reservationRepository.findByVolId(volId);
     }
 
-    // Create a new reservation
+    // Create a new reservation using email instead of ID
     @PostMapping
     public ResponseEntity<?> createReservation(@RequestBody Map<String, Object> body) {
-        int utilisateurId = (int) body.get("utilisateurId");
+        String email = (String) body.get("email");
         int volId = (int) body.get("volId");
 
-        Optional<Utilisateur> utilisateur = utilisateurRepository.findById(utilisateurId);
+        Optional<Utilisateur> utilisateur = utilisateurRepository.findByAdresseCourriel(email);
         Optional<Vol> vol = volRepository.findById(volId);
 
         if (utilisateur.isEmpty() || vol.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Utilisateur ou Vol non trouvé.");
         }
 
+        Vol selectedVol = vol.get();
+
+        selectedVol.setDisponibilite("non");
+        volRepository.save(selectedVol);
+
         Reservation reservation;
         if (body.containsKey("dateReservation")) {
             String dateStr = (String) body.get("dateReservation");
             LocalDateTime dateReservation = LocalDateTime.parse(dateStr);
-            reservation = new Reservation(utilisateur.get(), vol.get(), dateReservation);
+            reservation = new Reservation(utilisateur.get(), selectedVol, dateReservation);
         } else {
-            reservation = new Reservation(utilisateur.get(), vol.get());
+            reservation = new Reservation(utilisateur.get(), selectedVol);
         }
 
         Reservation saved = reservationRepository.save(reservation);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
-
+    // Get reservations by utilisateur ID (if needed elsewhere)
     @GetMapping("/utilisateur/{utilisateurId}")
     public ResponseEntity<List<Reservation>> getReservationsByUtilisateurId(@PathVariable int utilisateurId) {
         List<Reservation> reservations = reservationRepository.findByUtilisateurId(utilisateurId);
         return ResponseEntity.ok(reservations);
     }
-
-
-
 
     // Delete a reservation
     @DeleteMapping("/{id}")
