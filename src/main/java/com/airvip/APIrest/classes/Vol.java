@@ -49,10 +49,11 @@ public class Vol {
     // Constructeur
     public Vol(double temps, String disponibilite, int nb_place, Aeroport aeroportDepart, Aeroport aeroportArrivee, Avion avion) {
         this.temps = temps;
-        if (temps < 2) {
+        if (temps < 2.0) {
             this.prix = 500;
+        }else{
+            this.prix = 150 * temps;
         }
-        this.prix = 80 * temps;
         this.disponibilite = disponibilite;
         this.nb_place = nb_place;
         this.aeroportDepart = aeroportDepart;

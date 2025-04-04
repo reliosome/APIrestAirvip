@@ -45,9 +45,9 @@ public class VolController {
                 volDTO.getTemps(),
                 volDTO.getDisponibilite(),
                 volDTO.getNb_place(),
-                volDTO.getDepart_id(),
-                volDTO.getArrive_id(),
-                volDTO.getAvion_id()
+                volDTO.getFk_aeroport_depart(),
+                volDTO.getFk_aeroport_arrivee(),
+                volDTO.getFk_avion()
         );
 
         // Retourner une réponse HTTP 201 (Created) avec le vol créé
@@ -62,9 +62,9 @@ public class VolController {
                 updatedVol.getTemps(),
                 updatedVol.getDisponibilite(),
                 updatedVol.getNb_place(),
-                updatedVol.getDepart_id(),
-                updatedVol.getArrive_id(),
-                updatedVol.getAvion_id()
+                updatedVol.getFk_aeroport_depart(),
+                updatedVol.getFk_aeroport_arrivee(),
+                updatedVol.getFk_avion()
 
         );
         return volRepository.findById(id).map( vol -> {
