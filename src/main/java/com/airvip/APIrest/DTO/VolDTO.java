@@ -21,15 +21,15 @@ public class VolDTO {
         return nb_place;
     }
 
-    public int getAvion_id() {
+    public int getFk_avion() {
         return fk_avion;
     }
 
-    public int getArrive_id() {
+    public int getFk_aeroport_arrivee() {
         return fk_aeroport_arrivee;
     }
 
-    public int getDepart_id() {
+    public int getFk_aeroport_depart() {
         return fk_aeroport_depart;
     }
 
@@ -45,15 +45,15 @@ public class VolDTO {
         this.temps = temps;
     }
 
-    public void setAvion_id(int avion_id) {
+    public void setFk_avion(int avion_id) {
         this.fk_avion = avion_id;
     }
 
-    public void setArrive_id(int arrive_id) {
-        this.fk_aeroport_arrivee = arrive_id;
+    public void setFk_aeroport_arrivee(int arrivee_id) {
+        this.fk_aeroport_arrivee = arrivee_id;
     }
 
-    public void setDepart_id(int depart_id) {
+    public void setFk_aeroport_depart(int depart_id) {
         this.fk_aeroport_depart = depart_id;
     }
 }
