@@ -32,7 +32,6 @@
         </dependency>
 
         <!-- Dépendance pour la connexion à une base de données SQL Server -->
-
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
@@ -47,12 +46,26 @@
         </dependency>
 
         <!--Dépendance JWT pour validation de session web -->
-
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
             <version>0.12.6</version>
         </dependency>
+
+
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <version>3.1.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>6.4.4</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>
