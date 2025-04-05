@@ -57,4 +57,9 @@ public class AeroportController {
         aeroRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/villes")
+    public List<String> getAllVilles() {
+        return aeroRepository.findAllVilles();
+    }
 }
