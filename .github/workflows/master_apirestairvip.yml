@@ -48,8 +48,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: java-app
-          run-id: ${{ github.event.workflow_run.id }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: '${{ github.workspace }}/target/*.jar'
       
       - name: Login to Azure
         uses: azure/login@v2
