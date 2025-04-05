@@ -21,24 +21,28 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+			<version>3.4.3</version>
         </dependency>
 
         <!-- Dépendance Spring Boot Starter Data JPA pour la gestion de la base de données -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
+			<version>3.4.3</version>
         </dependency>
 
         <!-- Dépendance pour la connexion à une base de données SQL Server -->
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
+			<version>2.3.2</version>
         </dependency>
 
         <!-- Dépendance Spring Boot Starter Test pour les tests unitaires -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+			<version>3.4.3</version>
             <scope>test</scope>
         </dependency>
 
@@ -56,6 +60,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+				<version>3.4.3</version>
             </plugin>
         </plugins>
     </build>
