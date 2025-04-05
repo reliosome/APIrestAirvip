@@ -4,6 +4,8 @@ package com.airvip.APIrest.controleurs;
 import com.airvip.APIrest.DTO.VolDTO;
 import com.airvip.APIrest.classes.Vol;
 
+import com.airvip.APIrest.repository.AeroportRepository;
+import com.airvip.APIrest.repository.AvionRepository;
 import com.airvip.APIrest.repository.VolRepository;
 import com.airvip.APIrest.service.VolService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,12 @@ public class VolController {
     @Autowired
     private VolRepository volRepository;
 
+    @Autowired
+    private AvionRepository avionRepository;
+
+    @Autowired
+    private AeroportRepository aeroRepository;
+
     // GET : Récupérer tous les produits
     @GetMapping
     public List<Vol> getAllVols() {
@@ -40,6 +48,7 @@ public class VolController {
     // POST : Ajouter un vol
     @PostMapping
     public ResponseEntity<Vol> createVol(@RequestBody VolDTO volDTO) {
+
         // Utiliser le service pour créer le vol
         Vol vol = volService.createVol(
                 volDTO.getTemps(),
@@ -58,14 +67,13 @@ public class VolController {
     @PutMapping("/{id}")
     public ResponseEntity<Vol> updateVol(@PathVariable int id, @RequestBody VolDTO updatedVol) {
 
-        Vol volChanger = volService.createVol(
+        Vol volChanger = new Vol(
                 updatedVol.getTemps(),
                 updatedVol.getDisponibilite(),
                 updatedVol.getNb_place(),
-                updatedVol.getFk_aeroport_depart(),
-                updatedVol.getFk_aeroport_arrivee(),
-                updatedVol.getFk_avion()
-
+                aeroRepository.findAeroportById(updatedVol.getFk_aeroport_depart()),
+                aeroRepository.findAeroportById(updatedVol.getFk_aeroport_arrivee()),
+                avionRepository.findAvionById(updatedVol.getFk_avion())
         );
         return volRepository.findById(id).map( vol -> {
             vol.setAeroportArrive(volChanger.getAeroportArrive());
