@@ -32,13 +32,12 @@
         </dependency>
 
         <!-- Dépendance pour la connexion à une base de données SQL Server -->
-        <!--
+
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
-			<version>2.3.2</version>
+			<version>12.10.0</version>
         </dependency>
-        -->
         <!-- Dépendance Spring Boot Starter Test pour les tests unitaires -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -48,13 +47,12 @@
         </dependency>
 
         <!--Dépendance JWT pour validation de session web -->
-        <!--
+
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>0.11.5</version>
+            <artifactId>jjwt-api</artifactId>
+            <version>0.12.6</version>
         </dependency>
-        -->
     </dependencies>
 
     <build>
