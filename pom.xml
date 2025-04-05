@@ -36,7 +36,7 @@
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
-			<version>12.7.0</version>
+			<version>12.10.0.jre11</version>
         </dependency>
         <!-- Dépendance Spring Boot Starter Test pour les tests unitaires -->
         <dependency>
