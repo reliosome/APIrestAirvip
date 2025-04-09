@@ -44,6 +44,7 @@ public class SecurityConfig {
                         .requestMatchers("/avions", "avions/*").permitAll()
                         .requestMatchers("/utilisateurs/{id}").permitAll()
                         .requestMatchers("/reservations", "/reservations/**").permitAll()
+                        .requestMatchers("/images", "images/*").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
