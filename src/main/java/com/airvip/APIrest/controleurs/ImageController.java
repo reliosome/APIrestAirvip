@@ -1,12 +1,16 @@
 package com.airvip.APIrest.controleurs;
 
+import com.airvip.APIrest.DTO.ImageDTO;
 import com.airvip.APIrest.classes.Aeroport;
 import com.airvip.APIrest.classes.Avion;
 import com.airvip.APIrest.classes.Image;
+import com.airvip.APIrest.classes.Vol;
 import com.airvip.APIrest.repository.AeroportRepository;
 import com.airvip.APIrest.repository.AvionRepository;
 import com.airvip.APIrest.repository.ImageRepository;
+import com.airvip.APIrest.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +25,9 @@ public class ImageController {
 
     @Autowired
     private ImageRepository imageRepository;
+
+    @Autowired
+    private ImageService imageService;
 
 
     // GET : Récupérer tous les produits
@@ -38,7 +45,15 @@ public class ImageController {
 
     // POST : Ajouter un produit
     @PostMapping
-    public Image createImage(@RequestBody Image image) {
-        return imageRepository.save(image);
+    public ResponseEntity<Image> createImage(@RequestBody ImageDTO imageDTO) {
+
+        Image img =  imageService.createImage(
+                imageDTO.getImage_id(),
+                imageDTO.getUrl(),
+                imageDTO.getOrderIndex(),
+                imageDTO.getAvion_id()
+        );
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(img);
     }
 }

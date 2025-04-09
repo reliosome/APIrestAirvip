@@ -22,6 +22,15 @@ public class Image {
     @JsonIgnore
     private Avion avion;
 
+    public Image(){}
+
+    public Image(int image_id, String url, int orderIndex, Avion avion) {
+        this.image_id = image_id;
+        this.url = url;
+        this.orderIndex = orderIndex;
+        this.avion = avion;
+    }
+
     // Getters & Setters
     public int getImage_id() { return image_id; }
 
