@@ -115,7 +115,7 @@ public class Vol {
         if (temps < 2) {
             this.prix = 500;
         }
-        this.prix = 80 * temps;
+        this.prix = 150 * temps;
     }
 
     public double getTemps() {
