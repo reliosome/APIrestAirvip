@@ -50,9 +50,9 @@ public class Vol {
     public Vol(double temps, String disponibilite, int nb_place, Aeroport aeroportDepart, Aeroport aeroportArrivee, Avion avion) {
         this.temps = temps;
         if (temps < 2.0) {
-            this.prix = 500;
+            this.prix = 5000;
         }else{
-            this.prix = 150 * temps;
+            this.prix = 1500 * temps;
         }
         this.disponibilite = disponibilite;
         this.nb_place = nb_place;
