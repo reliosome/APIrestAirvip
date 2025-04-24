@@ -57,7 +57,7 @@ public class ReservationController {
 
         Vol selectedVol = vol.get();
 
-        selectedVol.setDisponibilite("non");
+        selectedVol.setDisponibilite("Non Disponible");
         volRepository.save(selectedVol);
 
         Reservation reservation;
@@ -86,6 +86,15 @@ public class ReservationController {
         if (!reservationRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
+
+        /*
+        List<Reservation> selectedRes = getReservationsByVolId(id);
+        Vol selectedVol = selectedRes.getVol();
+        selectedVol.setDisponibilite("Disponible");
+        volRepository.save(selectedVol);
+
+         */
+
         reservationRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
