@@ -113,9 +113,9 @@ public class Vol {
     public void setTemps(double temps) {
         this.temps = temps;
         if (temps < 2) {
-            this.prix = 500;
+            this.prix = 5000;
         }
-        this.prix = 150 * temps;
+        this.prix = 1500 * temps;
     }
 
     public double getTemps() {

@@ -57,7 +57,6 @@ public class AvionController {
             avion.setModele(updatedAvion.getModele());
             avion.setCapacite(updatedAvion.getCapacite());
 
-            // Clear previous images (optional - depends on your logic)
             imageRepo.deleteAll(avion.getImages());
 
             // Set new images
@@ -70,7 +69,8 @@ public class AvionController {
                     newImages.add(img);
                 }
             }
-            avion.setImages(newImages);
+            avion.getImages().clear();
+            avion.getImages().addAll(newImages);
 
             return ResponseEntity.ok(avionRepo.save(avion));
         }).orElseGet(() -> ResponseEntity.notFound().build());
